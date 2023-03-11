@@ -8,7 +8,10 @@ module.exports = {
       },
       colors: {
         brand: {
-          background: "#000814",
+          background: {
+            DEFAULT: "#000814",
+            400: "#000A1A",
+          },
           primary: "#fb6f92",
           secondary: "#af99ff",
         },

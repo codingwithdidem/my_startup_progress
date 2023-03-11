@@ -1,14 +1,13 @@
 import React from "react";
 import { NextPage } from "next";
-import type { Phase, Task } from "../types";
+import type { Phase as PhaseType } from "../types";
 import { useState } from "react";
-import { BsCheck } from "react-icons/bs";
-import { HiOutlineLockClosed } from "react-icons/hi2";
+import Phase from "@/components/Phase";
 
 type HomePageProps = {};
 
 const HomePage: NextPage<HomePageProps> = (props) => {
-  const [phases, setPhases] = useState<Phase[]>([
+  const [phases, setPhases] = useState<PhaseType[]>([
     {
       id: "foundation",
       name: "Foundation",
@@ -98,54 +97,22 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
   return (
     <main className="">
-      <div className="w-full max-w-sm border border-gray-100/10  rounded-lg px-10 py-6">
-        <h1 className="text-3xl font-semibold">My Startup Progress</h1>
+      <div className="w-full max-w-md border border-gray-100/10 bg-brand-background-400 rounded-lg px-10 py-10">
+        <h1 className="text-xl font-semibold -tracking-tight">
+          My Startup Progress
+        </h1>
 
-        <div className="mt-4 flex flex-col">
+        <div className="mt-10 flex flex-col">
           {phases
             .sort((a, b) => a.order - b.order)
             .map((phase, idx) => (
-              <div
+              <Phase
+                idx={idx}
                 key={phase.id}
-                className={`flex flex-col space-y-4 pt-8 first:pt-0 ${
-                  !isPhaseUnlocked(phase) && "opacity-50 cursor-not-allowed"
-                }`}
-              >
-                <div className="flex items-center">
-                  <div className="w-8 h-8 bg-gray-100/10 rounded-full mr-2 flex items-center justify-center flex-none">
-                    {idx + 1}
-                  </div>
-                  <div className="text-gray-100/50 text-lg font-semibold">
-                    {phase.name}
-                  </div>
-                  {!isPhaseUnlocked(phase) && (
-                    <HiOutlineLockClosed
-                      className="text-gray-100/50 ml-2"
-                      size={20}
-                    />
-                  )}
-                </div>
-                {phase.tasks.map((task) => (
-                  <button
-                    key={task.id}
-                    className="flex items-center space-x-4 disabled:cursor-not-allowed"
-                    onClick={() => toggleTaskCompleted(phase.id, task.id)}
-                    disabled={!isPhaseUnlocked(phase)}
-                  >
-                    <span className="w-6 h-6 flex items-center justify-center">
-                      {task.isCompleted ? (
-                        <BsCheck className="text-green-500" size={20} />
-                      ) : (
-                        <div className="w-2 h-2 bg-gray-100/10 rounded-full" />
-                      )}
-                    </span>
-
-                    <div className="text-gray-100/70 text-md font-semibold">
-                      {task.name}
-                    </div>
-                  </button>
-                ))}
-              </div>
+                phase={phase}
+                isUnlocked={isPhaseUnlocked(phase)}
+                toggleTaskCompleted={toggleTaskCompleted}
+              />
             ))}
         </div>
       </div>
