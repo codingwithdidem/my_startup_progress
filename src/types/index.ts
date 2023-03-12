@@ -7,6 +7,5 @@ export type Task = {
 export type Phase = {
   id: string;
   name: string;
-  order: number;
   tasks: Task[];
 };
