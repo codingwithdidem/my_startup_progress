@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NextPage } from "next";
 import type { Phase as PhaseType } from "../types";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Phase from "@/components/Phase";
 import Button from "@/components/Button";
+import Confetti from "@/components/Confetti";
+import CongratsModal from "@/components/CongratsModal";
 
 type HomePageProps = {};
 
 const HomePage: NextPage<HomePageProps> = (props) => {
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showCongratsModal, setShowCongratsModal] = useState(false);
   const [phases, setPhases] = useState<PhaseType[]>([
     {
       id: "foundation",
@@ -56,6 +60,24 @@ const HomePage: NextPage<HomePageProps> = (props) => {
       ],
     },
   ]);
+  const [randomFact, setRandomFact] = useState("");
+
+  const isAllPhasesCompleted = phases.every((p) =>
+    p.tasks.every((t) => t.isCompleted)
+  );
+
+  useEffect(() => {
+    if (isAllPhasesCompleted) {
+      // Fetch a random fact from the API
+      fetch("https://uselessfacts.jsph.pl/api/v2/facts/random")
+        .then((response) => response.json())
+        .then((data) => {
+          setRandomFact(data.text);
+        });
+
+      setShowConfetti(true);
+    }
+  }, [phases, isAllPhasesCompleted]);
 
   const toggleTaskCompleted = (phaseId: string, taskId: string) => {
     const phase = phases.find((p) => p.id === phaseId);
@@ -96,8 +118,13 @@ const HomePage: NextPage<HomePageProps> = (props) => {
     return phasesBefore.every((p) => p.tasks.every((t) => t.isCompleted));
   };
 
+  const onConfettiComplete = () => {
+    setShowConfetti(false);
+    setShowCongratsModal(true);
+  };
+
   return (
-    <main className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 px-10 py-10">
+    <main className="w-full grid grid-cols-1 md:grid-cols-2 gap-14 px-10 py-10">
       {/* Form */}
       <div>
         <h1 className="text-2xl font-semibold -tracking-tight">
@@ -162,6 +189,16 @@ const HomePage: NextPage<HomePageProps> = (props) => {
           </div>
         </div>
       </div>
+
+      {showConfetti && <Confetti onConfettiComplete={onConfettiComplete} />}
+
+      {showCongratsModal && (
+        <CongratsModal
+          open={showCongratsModal}
+          randomFact={randomFact}
+          onClose={() => setShowCongratsModal(false)}
+        />
+      )}
     </main>
   );
 };
