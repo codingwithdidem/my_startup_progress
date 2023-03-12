@@ -48,7 +48,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
 
   const isAllPhasesCompleted =
     phases.length > 0 &&
-    phases[0]?.tasks.length > 0 &&
+    phases.some((p) => p.tasks.length > 0) &&
     phases.every((p) => p.tasks.every((t) => t.isCompleted));
 
   useEffect(() => {
