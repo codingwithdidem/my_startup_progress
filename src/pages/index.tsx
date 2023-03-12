@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import type { Phase as PhaseType } from "../types";
 import { useState } from "react";
 import Phase from "@/components/Phase";
+import Button from "@/components/Button";
 
 type HomePageProps = {};
 
@@ -96,24 +97,69 @@ const HomePage: NextPage<HomePageProps> = (props) => {
   };
 
   return (
-    <main className="">
-      <div className="w-full max-w-md border border-gray-100/10 bg-brand-background-400 rounded-lg px-10 py-10">
-        <h1 className="text-xl font-semibold -tracking-tight">
-          My Startup Progress
+    <main className="w-full grid grid-cols-1 md:grid-cols-2 gap-10 px-10 py-10">
+      {/* Form */}
+      <div>
+        <h1 className="text-2xl font-semibold -tracking-tight">
+          Startup progress tracker
         </h1>
+        <p className="mt-2 text-gray-400">
+          Keep track of your startup progress with this simple tool.
+        </p>
 
-        <div className="mt-10 flex flex-col">
-          {phases
-            .sort((a, b) => a.order - b.order)
-            .map((phase, idx) => (
-              <Phase
-                idx={idx}
-                key={phase.id}
-                phase={phase}
-                isUnlocked={isPhaseUnlocked(phase)}
-                toggleTaskCompleted={toggleTaskCompleted}
+        <div className="mt-10">
+          <form className="flex flex-col">
+            <div className="flex flex-col mb-4 gap-2">
+              <label className="text-sm font-semibold text-gray-400">
+                Phase name
+              </label>
+              <input
+                className="px-4 py-2 rounded-md border border-gray-100/10 bg-brand-background-400 text-gray-50"
+                type="text"
+                placeholder="e.g. Discovery"
               />
-            ))}
+            </div>
+            <Button intent="secondary" size="small">
+              Add phase
+            </Button>
+          </form>
+
+          <hr className="my-10 border-gray-100/10" />
+
+          <form className="flex flex-col">
+            <div className="flex flex-col mb-4 gap-2">
+              <label className="text-sm font-semibold text-gray-400">
+                Task name
+              </label>
+              <input
+                className="px-4 py-2 rounded-md border border-gray-100/10 bg-brand-background-400 text-gray-50"
+                type="text"
+                placeholder="e.g. Create a pitch deck"
+              />
+            </div>
+            <Button intent="secondary" size="small">
+              Add task
+            </Button>
+          </form>
+        </div>
+      </div>
+
+      {/* View */}
+      <div>
+        <div className="w-full border border-gray-100/10 bg-brand-background-400 rounded-lg px-10 py-10">
+          <div className="flex flex-col">
+            {phases
+              .sort((a, b) => a.order - b.order)
+              .map((phase, idx) => (
+                <Phase
+                  idx={idx}
+                  key={phase.id}
+                  phase={phase}
+                  isUnlocked={isPhaseUnlocked(phase)}
+                  toggleTaskCompleted={toggleTaskCompleted}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </main>
