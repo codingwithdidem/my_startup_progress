@@ -5,7 +5,7 @@ import Button from "./Button";
 type CongratsModalProps = {
   children?: React.ReactNode;
   open: boolean;
-  randomFact: string;
+  randomFact: string | null;
   onClose: () => void;
 };
 
