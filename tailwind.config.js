@@ -12,18 +12,18 @@ module.exports = {
             DEFAULT: "#000814",
             400: "#000A1A",
           },
-          primary: "#fb6f92",
-          secondary: "#7371fc",
+          primary: "#003249",
+          secondary: "#390099",
         },
       },
       backgroundImage: {
         "radial-gradient": `
-        conic-gradient(from 0deg at 50% 50%, #7371fc 0%, #af99ff 2%, #073AFFFF 100%);
+        conic-gradient(from 0deg at 50% 50%, #003249 0%, #af99ff 2%, #390099 100%);
         `,
       },
       boxShadow: {
-        "glow-primary": "0px 0px 53px 0px rgba(251,111,146,0.3)",
-        "glow-secondary": "0px 0px 53px 0px rgba(115,113,252,0.3)",
+        "glow-primary": "0px 0px 53px 0px rgba(0,50,73,0.7)",
+        "glow-secondary": "0px 0px 53px 0px rgba(56,0,153,0.7)",
       },
     },
   },

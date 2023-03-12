@@ -145,6 +145,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
         phases={phases}
         isPhaseUnlocked={isPhaseUnlocked}
         toggleTaskCompleted={toggleTaskCompleted}
+        onReorderPhases={(newPhases) => setPhases(newPhases)}
       />
 
       {showConfetti && <Confetti onConfettiComplete={onConfettiComplete} />}
