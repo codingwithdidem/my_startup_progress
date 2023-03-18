@@ -10,6 +10,7 @@ type PhaseProps = {
   isUnlocked: boolean;
   toggleTaskCompleted: (phaseId: string, taskId: string) => void;
   removePhase: (phaseId: string) => void;
+  removeTask: (phaseId: string, taskId: string) => void;
 };
 
 const Phase: FC<PhaseProps> = ({
@@ -18,6 +19,7 @@ const Phase: FC<PhaseProps> = ({
   isUnlocked,
   toggleTaskCompleted,
   removePhase,
+  removeTask,
 }) => {
   return (
     <div
@@ -50,6 +52,7 @@ const Phase: FC<PhaseProps> = ({
           phaseId={phase.id}
           task={task}
           toggleTaskCompleted={toggleTaskCompleted}
+          removeTask={removeTask}
           disabled={!isUnlocked}
         />
       ))}
