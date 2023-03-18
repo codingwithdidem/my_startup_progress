@@ -12,7 +12,7 @@ module.exports = {
             DEFAULT: "#000814",
             400: "#000A1A",
           },
-          primary: "#003249",
+          primary: "#bd7a0e",
           secondary: "#390099",
         },
       },

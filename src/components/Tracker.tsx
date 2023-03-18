@@ -8,6 +8,7 @@ type TrackerProps = {
   phases: PhaseType[];
   isPhaseUnlocked: (phase: PhaseType) => boolean;
   toggleTaskCompleted: (phaseId: string, taskId: string) => void;
+  removePhase: (phaseId: string) => void;
   onReorderPhases: (phases: PhaseType[]) => void;
 };
 
@@ -15,6 +16,7 @@ const Tracker: FC<TrackerProps> = ({
   phases,
   isPhaseUnlocked,
   toggleTaskCompleted,
+  removePhase,
   onReorderPhases,
 }) => {
   const dragControls = useDragControls();
@@ -35,6 +37,7 @@ const Tracker: FC<TrackerProps> = ({
                 phase={phase}
                 isUnlocked={isPhaseUnlocked(phase)}
                 toggleTaskCompleted={toggleTaskCompleted}
+                removePhase={removePhase}
               />
             </Reorder.Item>
           ))}

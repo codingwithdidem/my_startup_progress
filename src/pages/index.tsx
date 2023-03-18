@@ -84,6 +84,11 @@ const HomePage: NextPage<HomePageProps> = (props) => {
     setPhases(newPhases);
   };
 
+  const removePhase = (phaseId: string) => {
+    const newPhases = phases.filter((phase) => phase.id !== phaseId);
+    setPhases(newPhases);
+  };
+
   const isPhaseUnlocked = (phase: Phase) => {
     const phaseIndex = phases.findIndex((p) => p.id === phase.id);
     const phasesBefore = phases.slice(0, phaseIndex);
@@ -145,6 +150,7 @@ const HomePage: NextPage<HomePageProps> = (props) => {
         phases={phases}
         isPhaseUnlocked={isPhaseUnlocked}
         toggleTaskCompleted={toggleTaskCompleted}
+        removePhase={removePhase}
         onReorderPhases={(newPhases) => setPhases(newPhases)}
       />
 
