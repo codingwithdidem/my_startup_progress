@@ -34,7 +34,11 @@ const Task: FC<TaskProps> = ({
           )}
         </span>
 
-        <div className="text-gray-100/70 text-md font-semibold">
+        <div
+          className={`text-gray-100/70 text-md font-semibold
+          ${task.isCompleted && "line-through opacity-50"}
+        `}
+        >
           {task.name}
         </div>
       </button>

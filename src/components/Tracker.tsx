@@ -3,6 +3,7 @@ import type { Phase as PhaseType } from "../types";
 import Phase from "./Phase";
 import { Reorder, useDragControls } from "framer-motion";
 import { MdDragIndicator } from "react-icons/md";
+import NoDataView from "./NoDataView";
 
 type TrackerProps = {
   phases: PhaseType[];
@@ -22,8 +23,12 @@ const Tracker: FC<TrackerProps> = ({
   onReorderPhases,
 }) => {
   const dragControls = useDragControls();
+
+  const noData = phases.length === 0;
+
   return (
-    <div className="w-full border border-gray-100/10 bg-brand-background-400 rounded-lg px-10 py-10">
+    <div className="w-full h-full border border-gray-100/10 bg-brand-background-400 rounded-lg px-10 py-10">
+      {noData && <NoDataView />}
       <div className="flex flex-col">
         <Reorder.Group axis="y" values={phases} onReorder={onReorderPhases}>
           {phases.map((phase, idx) => (
