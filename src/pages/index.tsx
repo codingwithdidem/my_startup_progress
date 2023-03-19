@@ -5,7 +5,7 @@ import Confetti from "@/components/Confetti";
 import CongratsModal from "@/components/CongratsModal";
 import Tracker from "@/components/Tracker";
 import { useRandomFact } from "@/hooks/useRandomFact";
-import { fetchPhases, selectPhases } from "@/features/tracker/trackerSlice";
+import { selectPhases } from "@/features/tracker/trackerSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import Panel from "@/components/Panel";
 
