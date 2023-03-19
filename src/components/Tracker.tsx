@@ -3,11 +3,7 @@ import type { Phase as PhaseType } from "../types";
 import Phase from "./Phase";
 import { Reorder, useDragControls } from "framer-motion";
 import NoDataView from "./NoDataView";
-import {
-  selectPhases,
-  setPhases,
-  toggleTaskCompleted,
-} from "@/features/tracker/trackerSlice";
+import { selectPhases, setPhases } from "@/features/tracker/trackerSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
 type TrackerProps = {};
@@ -17,27 +13,6 @@ const Tracker: FC<TrackerProps> = () => {
   const dragControls = useDragControls();
 
   const phases = useAppSelector(selectPhases);
-
-  const onToggleTaskCompleted = (phaseId: string, taskId: string) => {
-    const phase = phases.find((p) => p.id === phaseId);
-
-    if (!phase || !isPhaseUnlocked(phase)) {
-      return;
-    }
-
-    dispatch(toggleTaskCompleted({ phaseId, taskId }));
-  };
-
-  const isPhaseUnlocked = (phase: Phase) => {
-    const phaseIndex = phases.findIndex((p) => p.id === phase.id);
-    const phasesBefore = phases.slice(0, phaseIndex);
-
-    if (phasesBefore.length === 0) {
-      return true;
-    }
-
-    return phasesBefore.every((p) => p.tasks.every((t) => t.isCompleted));
-  };
 
   const onReorderPhases = (phases: PhaseType[]) => {
     dispatch(setPhases(phases));
@@ -56,13 +31,7 @@ const Tracker: FC<TrackerProps> = () => {
               className="mb-10"
               dragControls={dragControls}
             >
-              <Phase
-                idx={idx}
-                key={phase.id}
-                phase={phase}
-                isUnlocked={isPhaseUnlocked(phase)}
-                toggleTaskCompleted={onToggleTaskCompleted}
-              />
+              <Phase idx={idx} phase={phase} />
             </Reorder.Item>
           ))}
         </Reorder.Group>

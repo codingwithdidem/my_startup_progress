@@ -3,23 +3,34 @@ import Task from "./Task";
 import type { Phase } from "../types";
 import { HiOutlineLockClosed, HiOutlineXMark } from "react-icons/hi2";
 import { MdDragIndicator } from "react-icons/md";
-import { removePhase } from "@/features/tracker/trackerSlice";
-import { useAppDispatch } from "@/app/hooks";
+import {
+  getIsPhaseUnlocked,
+  removePhase,
+  toggleTaskCompleted,
+} from "@/features/tracker/trackerSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useMotionValue } from "framer-motion";
 
 type PhaseProps = {
   idx: number;
   phase: Phase;
-  isUnlocked: boolean;
-  toggleTaskCompleted: (phaseId: string, taskId: string) => void;
 };
 
-const Phase: FC<PhaseProps> = ({
-  idx,
-  phase,
-  isUnlocked,
-  toggleTaskCompleted,
-}) => {
+const Phase: FC<PhaseProps> = ({ idx, phase }) => {
   const dispatch = useAppDispatch();
+  const isPhaseUnlocked = useAppSelector((state) =>
+    getIsPhaseUnlocked(state, phase)
+  );
+
+  const y = useMotionValue(0);
+
+  const onToggleTaskCompleted = (phaseId: string, taskId: string) => {
+    if (!phase || !isPhaseUnlocked) {
+      return;
+    }
+
+    dispatch(toggleTaskCompleted({ phaseId, taskId }));
+  };
 
   const onRemovePhase = (phaseId: string) => {
     dispatch(removePhase(phaseId));
@@ -27,20 +38,23 @@ const Phase: FC<PhaseProps> = ({
 
   return (
     <div
-      key={phase.id}
-      className={`flex flex-col space-y-4 pt-8 first:pt-0 ${
-        !isUnlocked && "opacity-50 cursor-not-allowed"
-      }`}
+      className={`flex flex-col space-y-4 pt-8 first:pt-0 select-none ${
+        !isPhaseUnlocked && "opacity-50 cursor-not-allowed"
+      }
+      `}
     >
       <div className="group flex items-center">
-        <MdDragIndicator className="text-gray-100/50 mr-2" size={20} />
+        <MdDragIndicator
+          className="text-gray-100/50 mr-2 cursor-grab active:cursor-grabbing reorder-handle"
+          size={20}
+        />
         <div className="w-8 h-8 bg-gray-100/10 rounded-full mr-2 flex items-center justify-center flex-none">
           {idx + 1}
         </div>
         <div className="text-gray-100/50 text-lg font-semibold">
           {phase.name}
         </div>
-        {!isUnlocked && (
+        {!isPhaseUnlocked && (
           <HiOutlineLockClosed className="text-gray-100/50 ml-2" size={20} />
         )}
 
@@ -55,8 +69,8 @@ const Phase: FC<PhaseProps> = ({
           key={task.id}
           phaseId={phase.id}
           task={task}
-          toggleTaskCompleted={toggleTaskCompleted}
-          disabled={!isUnlocked}
+          toggleTaskCompleted={onToggleTaskCompleted}
+          disabled={!isPhaseUnlocked}
         />
       ))}
     </div>

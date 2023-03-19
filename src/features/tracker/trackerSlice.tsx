@@ -84,6 +84,17 @@ export const {
   toggleTaskCompleted,
 } = trackerSlice.actions;
 
+export const getIsPhaseUnlocked = (state: RootState, phase: Phase) => {
+  const phaseIndex = state.tracker.phases.findIndex((p) => p.id === phase.id);
+  const phasesBefore = state.tracker.phases.slice(0, phaseIndex);
+
+  if (phasesBefore.length === 0) {
+    return true;
+  }
+
+  return phasesBefore.every((p) => p.tasks.every((t) => t.isCompleted));
+};
+
 export const selectPhases = (state: RootState) => state.tracker.phases;
 
 export default trackerSlice.reducer;
