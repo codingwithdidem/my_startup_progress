@@ -2,13 +2,14 @@ import React, { FC } from "react";
 import { BsCheck } from "react-icons/bs";
 import { HiOutlineXMark } from "react-icons/hi2";
 import type { Task } from "../types";
+import { removeTask } from "@/features/tracker/trackerSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 type TaskProps = {
   phaseId: string;
   task: Task;
   disabled: boolean;
   toggleTaskCompleted: (phaseId: string, taskId: string) => void;
-  removeTask: (phaseId: string, taskId: string) => void;
 };
 
 const Task: FC<TaskProps> = ({
@@ -16,8 +17,13 @@ const Task: FC<TaskProps> = ({
   task,
   disabled,
   toggleTaskCompleted,
-  removeTask,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const onRemoveTask = (taskId: string) => {
+    dispatch(removeTask({ phaseId, taskId }));
+  };
+
   return (
     <div className="group flex items-center">
       <button
@@ -45,7 +51,7 @@ const Task: FC<TaskProps> = ({
       <HiOutlineXMark
         className="opacity-0 group-hover:opacity-100 cursor-pointer transition duration-300 ease-in-out text-red-400/100 ml-2"
         size={16}
-        onClick={() => removeTask(phaseId, task.id)}
+        onClick={() => onRemoveTask(task.id)}
       />
     </div>
   );

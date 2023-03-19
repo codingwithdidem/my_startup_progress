@@ -3,14 +3,14 @@ import Task from "./Task";
 import type { Phase } from "../types";
 import { HiOutlineLockClosed, HiOutlineXMark } from "react-icons/hi2";
 import { MdDragIndicator } from "react-icons/md";
+import { removePhase } from "@/features/tracker/trackerSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 type PhaseProps = {
   idx: number;
   phase: Phase;
   isUnlocked: boolean;
   toggleTaskCompleted: (phaseId: string, taskId: string) => void;
-  removePhase: (phaseId: string) => void;
-  removeTask: (phaseId: string, taskId: string) => void;
 };
 
 const Phase: FC<PhaseProps> = ({
@@ -18,9 +18,13 @@ const Phase: FC<PhaseProps> = ({
   phase,
   isUnlocked,
   toggleTaskCompleted,
-  removePhase,
-  removeTask,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const onRemovePhase = (phaseId: string) => {
+    dispatch(removePhase(phaseId));
+  };
+
   return (
     <div
       key={phase.id}
@@ -43,7 +47,7 @@ const Phase: FC<PhaseProps> = ({
         <HiOutlineXMark
           className="opacity-0 group-hover:opacity-100 cursor-pointer transition duration-300 ease-in-out text-red-400/100 ml-2"
           size={16}
-          onClick={() => removePhase(phase.id)}
+          onClick={() => onRemovePhase(phase.id)}
         />
       </div>
       {phase.tasks.map((task) => (
@@ -52,7 +56,6 @@ const Phase: FC<PhaseProps> = ({
           phaseId={phase.id}
           task={task}
           toggleTaskCompleted={toggleTaskCompleted}
-          removeTask={removeTask}
           disabled={!isUnlocked}
         />
       ))}

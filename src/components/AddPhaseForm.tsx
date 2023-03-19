@@ -4,16 +4,17 @@ import { v4 as uuidv4 } from "uuid";
 import type { Phase } from "../types";
 import Button from "./Button";
 import Divider from "./Divider";
+import { addPhase } from "@/features/tracker/trackerSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
 type PhaseFormType = {
   phaseName: string;
 };
 
-type AddPhaseFormProps = {
-  onPhaseAdded: (phase: Phase) => void;
-};
+type AddPhaseFormProps = {};
 
-const AddPhaseForm: FC<AddPhaseFormProps> = ({ onPhaseAdded }) => {
+const AddPhaseForm: FC<AddPhaseFormProps> = ({}) => {
+  const dispatch = useAppDispatch();
   const {
     register,
     reset,
@@ -28,7 +29,7 @@ const AddPhaseForm: FC<AddPhaseFormProps> = ({ onPhaseAdded }) => {
       tasks: [],
     };
 
-    onPhaseAdded(newPhase);
+    dispatch(addPhase(newPhase));
 
     reset();
   };

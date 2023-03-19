@@ -4,18 +4,21 @@ import { v4 as uuidv4 } from "uuid";
 import type { Phase as PhaseType, Task } from "../types";
 import Button from "./Button";
 import Divider from "./Divider";
+import { addTask, selectPhases } from "@/features/tracker/trackerSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
 type TaskFormType = {
   phaseId: string;
   taskName: string;
 };
 
-type AddTaskFormProps = {
-  phases: PhaseType[];
-  onTaskAdded: (phaseId: string, task: Task) => void;
-};
+type AddTaskFormProps = {};
 
-const AddTaskForm: FC<AddTaskFormProps> = ({ phases, onTaskAdded }) => {
+const AddTaskForm: FC<AddTaskFormProps> = () => {
+  const dispatch = useAppDispatch();
+
+  const phases = useAppSelector(selectPhases);
+
   const {
     register: registerTask,
     reset: resetTask,
@@ -36,7 +39,7 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ phases, onTaskAdded }) => {
       isCompleted: false,
     };
 
-    onTaskAdded(phaseId, newTask);
+    dispatch(addTask({ phaseId, task: newTask }));
 
     resetTask();
   };
