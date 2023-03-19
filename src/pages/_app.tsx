@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "@/app/store";
 import { setPhases } from "@/features/tracker/trackerSlice";
 import { useEffect } from "react";
-import { readP, readPhasesFromLocalStorage } from "@/utils/storage";
+import { readPhasesFromLocalStorage } from "@/utils/storage";
 
 const inter = Inter({
   subsets: ["latin"],

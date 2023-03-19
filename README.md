@@ -35,8 +35,6 @@ In the app, you can do the following:
 
 ## Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
 1. Clone the repo
    ```sh
    git clone https://github.com/codingwithdidem/my_startup_progress.git
@@ -53,7 +51,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: https://raw.githubusercontent.com/codingwithdidem/my_startup_progress/main/public/images/screenshot.png?token=GHSAT0AAAAAACAHQHR5ISKAJ3Q4KYRHHGJCZAXJYQQ
 [next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [next-url]: https://nextjs.org/
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
