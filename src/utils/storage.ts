@@ -1,6 +1,6 @@
 import { Phase } from "@/types";
 
-export const readFromLocalStorage = () => {
+export const readPhasesFromLocalStorage = () => {
   if (typeof window !== "undefined") {
     try {
       const phases = localStorage.getItem("phases");
@@ -14,7 +14,7 @@ export const readFromLocalStorage = () => {
   }
 };
 
-export const writeToLocalStorage = (phases: Phase[]) => {
+export const writePhasesToLocalStorage = (phases: Phase[]) => {
   if (typeof window !== "undefined") {
     try {
       localStorage.setItem("phases", JSON.stringify(phases));

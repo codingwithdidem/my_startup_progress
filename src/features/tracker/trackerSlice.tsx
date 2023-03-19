@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../app/store";
 import { Phase, Task } from "@/types";
-import { readFromLocalStorage } from "@/utils/storage";
+import { readPhasesFromLocalStorage } from "@/utils/storage";
 
 interface TrackerState {
   phases: Phase[];
@@ -16,9 +16,6 @@ export const trackerSlice = createSlice({
   name: "tracker",
   initialState,
   reducers: {
-    fetchPhases: (state) => {
-      state.phases = readFromLocalStorage();
-    },
     setPhases: (state, action: PayloadAction<Phase[]>) => {
       state.phases = action.payload;
     },
@@ -78,7 +75,6 @@ export const trackerSlice = createSlice({
 });
 
 export const {
-  fetchPhases,
   setPhases,
   addPhase,
   removePhase,

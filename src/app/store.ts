@@ -1,4 +1,4 @@
-import { writeToLocalStorage } from "@/utils/storage";
+import { writePhasesToLocalStorage } from "@/utils/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import trackerReducer from "../features/tracker/trackerSlice";
 
@@ -9,7 +9,7 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
-  writeToLocalStorage(store.getState().tracker.phases);
+  writePhasesToLocalStorage(store.getState().tracker.phases);
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

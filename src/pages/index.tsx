@@ -19,10 +19,6 @@ const HomePage: NextPage<HomePageProps> = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showCongratsModal, setShowCongratsModal] = useState(false);
 
-  useEffect(() => {
-    dispatch(fetchPhases());
-  }, [dispatch]);
-
   const isAllPhasesCompleted =
     phases.length > 0 &&
     phases.every((p) => p.tasks.length > 0) &&
