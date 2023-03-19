@@ -43,10 +43,17 @@ In the app, you can do the following:
    ```sh
    npm install
    ```
-3. Start development server
+3. Start development server to run locally
 
    ```sh
    npm run dev
+   ```
+
+   If you want to run this site in **production**, you can run:
+
+   ```sh
+   npm run build
+   npm run start
    ```
 
 <!-- MARKDOWN LINKS & IMAGES -->
