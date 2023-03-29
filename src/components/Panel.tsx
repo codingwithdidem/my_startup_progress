@@ -5,9 +5,7 @@ import Button from "./Button";
 import { resetTracker } from "@/features/tracker/trackerSlice";
 import { useAppDispatch } from "@/app/hooks";
 
-type PanelProps = {
-  children?: React.ReactNode;
-};
+type PanelProps = {};
 
 const Panel: FC<PanelProps> = () => {
   const dispatch = useAppDispatch();

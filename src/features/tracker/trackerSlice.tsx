@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../app/store";
 import { Phase, Task } from "@/types";
-import { readPhasesFromLocalStorage } from "@/utils/storage";
 
 interface TrackerState {
   phases: Phase[];

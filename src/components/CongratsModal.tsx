@@ -1,9 +1,8 @@
-import React, { FC, Fragment, useState, useEffect } from "react";
+import React, { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Button from "./Button";
 
 type CongratsModalProps = {
-  children?: React.ReactNode;
   open: boolean;
   randomFact: string | null;
   onClose: () => void;

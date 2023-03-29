@@ -1,5 +1,4 @@
-/* eslint-disable react/display-name */
-import React, { FC, forwardRef } from "react";
+import React, { FC } from "react";
 import Lottie from "lottie-react";
 import confettiAnimation from "../animations/confetti.json";
 

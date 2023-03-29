@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import type { Phase as PhaseType, Task } from "../types";
+import type { Task } from "../types";
 import Button from "./Button";
 import Divider from "./Divider";
 import { addTask, selectPhases } from "@/features/tracker/trackerSlice";

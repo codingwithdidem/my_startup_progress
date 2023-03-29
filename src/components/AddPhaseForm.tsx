@@ -5,7 +5,7 @@ import type { Phase } from "../types";
 import Button from "./Button";
 import Divider from "./Divider";
 import { addPhase } from "@/features/tracker/trackerSlice";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useAppDispatch } from "@/app/hooks";
 
 type PhaseFormType = {
   phaseName: string;

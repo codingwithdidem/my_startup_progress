@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 
-type NoDataViewProps = {
-  children?: React.ReactNode;
-};
+type NoDataViewProps = {};
 
 const NoDataView: FC<NoDataViewProps> = (props) => {
   return (
